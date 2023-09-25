@@ -18,7 +18,8 @@ cathode_x, cathode_y = width - 50, height // 2
 electron_x, electron_y = anode_x, anode_y
 
 running = True
-paused = False  
+paused = False
+electron_direction = 1 
 
 while running:
     for event in pygame.event.get():
@@ -26,12 +27,19 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                paused = not paused  
+                paused = not paused
 
-    if not paused:  
-        if electron_x < cathode_x:
-            electron_x += 2  
+    if not paused:
+        if electron_x < cathode_x and electron_direction == 1:
+            electron_x += 2
+        elif electron_x > anode_x and electron_direction == -1:
+            electron_x -= 2
 
+        
+        if electron_x == cathode_x:
+            electron_direction = -1  
+        elif electron_x == anode_x:
+            electron_direction = 1 
     screen.fill((0, 0, 0))
 
     pygame.draw.circle(screen, (255, 255, 0), (anode_x, anode_y), 10)
