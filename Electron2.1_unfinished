@@ -38,14 +38,21 @@ class Electrone:
         pygame.draw.circle(
             win, self.color, (self.x, self.y), self.radius)
 
-electron = Electrone(10, HEIGHT // 2, 10, (0, 0, 255), vel_x, vel_y)
-
 def draw():
     WIN.fill((255, 255, 255))
     paddle = Paddle(0, 0, WIDTH, 20, (0, 0, 0))
     paddle.draw(WIN)
-    electron.move()
-    electron.draw(WIN)
+    
+
+    electron1.move()
+    electron1.draw(WIN)
+
+
+    if electron1.velocity_y == 0 and   electron1.velocity_x == 0:
+
+        electron2.move()
+        electron2.draw(WIN)
+
     pygame.display.update()
 
 def main():
@@ -58,12 +65,23 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-        if electron.x >= HEIGHT:
-            electron.velocity_x = 0
-            electron.velocity_y = 0  
+        if electron1.x >= HEIGHT:
+            electron1.velocity_x = 0
+            electron1.velocity_y = 0
+            
+        if electron2.x >= HEIGHT:
+           electron2.velocity_x = 0
+           electron2.velocity_y = 0
+
+
+
         draw()
 
     pygame.quit()
 
 if __name__ == "__main__":
+    
+    electron1 = Electrone(10, HEIGHT // 2, 10, (0, 0, 255), vel_x, vel_y)
+    electron2 = Electrone(10, HEIGHT // 2, 10, (0, 0, 255), vel_x//2, vel_y//2)
+
     main()
